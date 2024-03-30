@@ -1,0 +1,93 @@
+{% extends 'padre.html' %} {% load static %} {% block contenido %}
+
+<main class="container">
+  <h1 class="text-center">Alumnos</h1>
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <img
+          src="{% static 'AppCoder/assets/img/testimonials-1.jpg' %}"
+          alt=""
+        />
+        <div class="card-body">
+          <h5 class="card-title">Andrea Alzate</h5>
+          <p class="card-text">Me gusto mucho el curso</p>
+          <a class="btn btn-danger" href="">Enviar mensaje</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <img
+          src="{% static 'AppCoder/assets/img/testimonials-2.jpg' %}"
+          alt=""
+        />
+        <div class="card-body">
+          <h5 class="card-title">Ramon Perez</h5>
+          <p class="card-text">Me gusto mucho el curso</p>
+          <a class="btn btn-danger" href="">Enviar mensaje</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <img
+          src="{% static 'AppCoder/assets/img/testimonials-3.jpg' %}"
+          alt=""
+        />
+        <div class="card-body">
+          <h5 class="card-title">Patricia Perez</h5>
+          <p class="card-text">Me gusto mucho el curso</p>
+          <a class="btn btn-danger" href="">Enviar mensaje</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="card">
+        <img
+          src="{% static 'AppCoder/assets/img/testimonials-1.jpg' %}"
+          alt=""
+        />
+        <div class="card-body">
+          <h5 class="card-title">Mallory Perez</h5>
+          <p class="card-text">Me gusto mucho el curso</p>
+          <a class="btn btn-danger" href="">Enviar mensaje</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col 12 col-md-12">
+      <h1 class="text-xl-center">Alumnos inscritos</h1>
+      <table class="table">
+        <!-- esta es la estructura de boostrap -->
+        <!-- creo una tabla y por cada vuelta me agrega una fila -->
+        <thead>
+          <tr>
+            <!-- titulos de la tabla -->
+            <th>id</th>
+            <th>nombre</th>
+            <th>camada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ingresas las filas de la tabla -->
+          {% for n in alumnos %}
+          <tr>
+            <!-- filas de la tabla -->
+            <th scope="row">{{n.id}}</th>
+            <!-- data de la tabla -->
+            <td>{{n.nombre}}</td>
+            <td>{{n.camada}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
