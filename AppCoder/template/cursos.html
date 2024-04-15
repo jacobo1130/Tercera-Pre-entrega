@@ -4,10 +4,6 @@
 
 {% block contenido %}
 
-    <!--{% for n in cursos %}
-        <p>{{n.nombre}}</p>
-        <p>{{n.camada}}</p>
-    {% endfor %} -->
 <main class="container">
     <h1 class="text-xl-center"> Cursos</h1>
     <table class="table">
@@ -25,11 +21,11 @@
             <!-- ingresas las filas de la tabla -->
             {% for n in cursos %}
                 <tr>
-                    <!-- filas de la tabla -->
-                    <th scope="row">{{n.id}}</th>
-                    <!-- data de la tabla -->
+                    <td>{{n.id}}</td>
                     <td>{{n.nombre}}</td>
                     <td>{{n.camada}}</td>
+                    <td><a href="{% url 'editar_curso' n.id %}" class="btn btn-warning btn-sm">EDITAR</a></td>
+                    <td><a href="{% url 'elimina_curso' n.id %}" class="btn btn-danger btn-sm">BORRAR</a></td>
                 </tr>
             {% endfor %}
         </tbody>

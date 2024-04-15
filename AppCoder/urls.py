@@ -14,6 +14,12 @@ urlpatterns = [
     path("alta_registro", views.registro_formulario),
     path("buscar", views.buscar),
     path("buscar_alumnos", views.buscar_alumnos),
-    path("buscar_profesores", views.buscar_profesores)
+    path("buscar_profesores", views.buscar_profesores),
+    path("eliminar_curso/<int:id>",views.elimina_curso, name="elimina_curso"),
+    path("editar_curso/<int:id>", views.editar, name="editar_curso"),
+    path("eliminar_alumno/<int:id>",views.elimina_alumno, name="elimina_alumno"),
+    path("editar_alumno/<int:id>", views.editar_alumno, name="editar_alumno"),
+    path("eliminar_profesor/<int:id>",views.elimina_profesor, name="elimina_profesor"),
+    path("editar_profesor/<int:id>", views.editar_profesor, name="editar_profesor")
 
 ]

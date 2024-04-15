@@ -71,18 +71,23 @@
             <th>id</th>
             <th>nombre</th>
             <th>camada</th>
+            <th>clase</th>
+            <th>semestre</th>
+
           </tr>
         </thead>
         <tbody>
           <!-- ingresas las filas de la tabla -->
           {% for n in alumnos %}
           <tr>
-            <!-- filas de la tabla -->
-            <th scope="row">{{n.id}}</th>
-            <!-- data de la tabla -->
+            <td>{{n.id}}</td>
             <td>{{n.nombre}}</td>
             <td>{{n.camada}}</td>
-          </tr>
+            <td>{{n.clase}}</td>
+            <td>{{n.semestre}}</td>
+            <td><a href="{% url 'editar_alumno' n.id %}" class="btn btn-warning btn-sm">EDITAR</a></td>
+            <td><a href="{% url 'elimina_alumno' n.id %}" class="btn btn-danger btn-sm">BORRAR</a></td>
+        </tr>
           {% endfor %}
         </tbody>
       </table>

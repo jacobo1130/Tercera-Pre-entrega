@@ -68,6 +68,7 @@
             <th>id</th>
             <th>nombre</th>
             <th>camada</th>
+            <th>clase</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +80,9 @@
             <!-- data de la tabla -->
             <td>{{n.nombre}}</td>
             <td>{{n.camada}}</td>
+            <td>{{n.clase}}</td>
+            <td><a href="{% url 'editar_profesor' n.id %}" class="btn btn-warning btn-sm">EDITAR</a></td>
+            <td><a href="{% url 'elimina_profesor' n.id %}" class="btn btn-danger btn-sm">BORRAR</a></td>
           </tr>
           {% endfor %}
         </tbody>
