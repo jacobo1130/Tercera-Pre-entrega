@@ -6,6 +6,7 @@ from AppCoder.forms import Curso_formulario,Profesores_formulario,Alumnos_formul
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from AppCoder.models import Curso, Avatar
 
 
 def inicio(request):
@@ -18,6 +19,7 @@ def alta_curso(request,nombre):
     texto = f"Se guardo en la BD el curso: {curso.nombre} {curso.camada}"
     return HttpResponse(texto)
 
+@login_required
 def ver_cursos(request):
     #curso metodo de la clase curso
     #traeme todo los ojetos de tipo curso los obtiene de la BD
@@ -38,8 +40,10 @@ def alumnos(request):
     dicc = {"alumnos":alumnos}
     plantilla = loader.get_template("alumnos.html")
     documento = plantilla.render(dicc)
-    return HttpResponse(documento)
-
+    
+    avatares= Avatar.objects.filter(user=request.user.id)
+    return render(request, "alumnos.html",{"alumnos":alumnos})
+    
 
 def profesores(request):
     profesores = Profesores.objects.all()
@@ -238,7 +242,8 @@ def login_request(request):
             user = authenticate(username=usuario , password=contra)
             if user is not None:
                 login(request , user )
-                return render( request , "inicio.html" , {"mensaje":f"Bienvenido/a {usuario}", "usuario":usuario})
+                avatares= Avatar.objects.filter(user=request.user.id)
+                return render( request , "inicio.html" , {"url":avatares[0].imagen.url, "mensaje":f"Bienvenido/a {usuario}", "usuario":usuario})
             else:
                 return HttpResponse(f"Usuario no encontrado")
         else:
