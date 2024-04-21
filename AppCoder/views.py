@@ -10,7 +10,12 @@ from AppCoder.models import Curso, Avatar
 
 
 def inicio(request):
-    return render(request,"padre.html")
+    avatares = Avatar.objects.filter(user=request.user.id)
+    
+    if avatares.exists():
+        return render(request, "padre.html", {'url':avatares[0].imagen.url})
+    else:
+        return render(request,"padre.html")
 
 
 def alta_curso(request,nombre):
@@ -19,39 +24,34 @@ def alta_curso(request,nombre):
     texto = f"Se guardo en la BD el curso: {curso.nombre} {curso.camada}"
     return HttpResponse(texto)
 
-@login_required
+
 def ver_cursos(request):
     #curso metodo de la clase curso
     #traeme todo los ojetos de tipo curso los obtiene de la BD
     cursos = Curso.objects.all()
-    #retorna toda la lista de cursos
-    #creo el dicionario para mostrar los cursos
-    dicc = {"cursos":cursos}
-    #comunicamos el diccionario al template para que lo vea
-    plantilla = loader.get_template("cursos.html")
-    #en el render se hace la parte del dinamismo, es todo el proceso 
-    documento = plantilla.render(dicc)
-    #esto es lo que se retorna, lo que ya se va a mostrar
-    return HttpResponse(documento)
+    avatares= Avatar.objects.filter(user=request.user.id)
+    if avatares.exists():
+        return render(request, "cursos.html",{"cursos":cursos,"url":avatares[0].imagen.url})
+    else:
+        return render(request,"cursos.html")
 
 
 def alumnos(request):
     alumnos = Alumnos.objects.all()
-    dicc = {"alumnos":alumnos}
-    plantilla = loader.get_template("alumnos.html")
-    documento = plantilla.render(dicc)
-    
     avatares= Avatar.objects.filter(user=request.user.id)
-    return render(request, "alumnos.html",{"alumnos":alumnos})
+    if avatares.exists():
+        return render(request, "alumnos.html",{"alumnos":alumnos,"url":avatares[0].imagen.url})
+    else:
+        return render(request, "alumnos.html",{"alumnos":alumnos})
     
 
 def profesores(request):
     profesores = Profesores.objects.all()
-    dicc = {"profesores":profesores}
-    plantilla = loader.get_template("profesores.html")
-    documento = plantilla.render(dicc)
-    return HttpResponse(documento)
-
+    avatares= Avatar.objects.filter(user=request.user.id)
+    if avatares.exists():
+        return render(request, "profesores.html",{"profesores":profesores,"url":avatares[0].imagen.url})
+    else:
+        return render(request, "profesores.html",{"profesores":profesores})
 
 def curso_formulario(request):
 
@@ -68,8 +68,11 @@ def curso_formulario(request):
     return render(request , "formulario.html")
 
 def buscar_curso(request):
-
-    return render(request, "buscar_curso.html")
+    avatares= Avatar.objects.filter(user=request.user.id)
+    if avatares.exists():
+        return render(request, "buscar_curso.html",{"url":avatares[0].imagen.url})
+    else:
+        return render(request, "buscar_curso.html")
 
 def buscar(request):
      
@@ -115,9 +118,10 @@ def registro_formulario(request):
             datos= mi_formulario.cleaned_data
             ingreso = Ingreso( nombre=datos["nombre"], curso=datos["curso"], celular=datos["celular"], edad=datos["edad"])
             ingreso.save()
-            return render(request, "formulario.html")
-        
-    return render(request , "formulario.html")    
+            avatares= Avatar.objects.filter(user=request.user.id)
+            return render(request, "formulario.html",{"url":avatares[0].imagen.url})
+    avatares= Avatar.objects.filter(user=request.user.id)    
+    return render(request , "formulario.html",{"url":avatares[0].imagen.url})    
 
 def buscar_alumnos(request):
     if request.GET["nombre"]:
@@ -140,9 +144,9 @@ def elimina_curso(request,id):
         curso.delete()
         #trigo todos los cursos
         curso = Curso.objects.all()
-
+        avatares= Avatar.objects.filter(user=request.user.id)
         #renderizo la tabla con todos los cursos para no darle actualizar le paso los cursos sin el que borre
-        return render(request, "cursos.html", {"cursos":curso})
+        return render(request, "cursos.html", {"cursos":curso,"url":avatares[0].imagen.url})
 
 def editar(request,id):
 
@@ -157,23 +161,23 @@ def editar(request,id):
             curso.save()
 
             curso=Curso.objects.all()
-
-            return render( request , "cursos.html" , {"cursos":curso})
+            avatares= Avatar.objects.filter(user=request.user.id)
+            return render( request , "cursos.html" , {"cursos":curso,"url":avatares[0].imagen.url})
 
 
     else:
         mi_formulario = Curso_formulario(initial={"nombre":curso.nombre,"camada":curso.camada})
-
-    return render (request, "editar_curso.html",{"mi_formulario":mi_formulario,"curso":curso})
+    avatares= Avatar.objects.filter(user=request.user.id)
+    return render (request, "editar_curso.html",{"mi_formulario":mi_formulario,"curso":curso,"url":avatares[0].imagen.url})
 
 def elimina_alumno(request,id):
         alumnos = Alumnos.objects.get(id=id)
         alumnos.delete()
         #trigo todos los cursos
         alumnos = Alumnos.objects.all()
-
+        avatares= Avatar.objects.filter(user=request.user.id)
         #renderizo la tabla con todos los cursos para no darle actualizar le paso los cursos sin el que borre
-        return render(request, "alumnos.html", {"alumnos":alumnos})
+        return render(request, "alumnos.html", {"alumnos":alumnos,"url":avatares[0].imagen.url})
 
 def editar_alumno(request,id):
 
@@ -191,14 +195,14 @@ def editar_alumno(request,id):
             alumnos.save()
 
             alumnos=Alumnos.objects.all()
-
-            return render( request , "alumnos.html" , {"alumnos":alumnos})
+            avatares= Avatar.objects.filter(user=request.user.id)
+            return render( request , "alumnos.html" , {"alumnos":alumnos,"url":avatares[0].imagen.url})
 
 
     else:
         mi_formulario = Alumnos_formulario(initial={"nombre":alumnos.nombre,"camada":alumnos.camada,"clase":alumnos.clase,"semestre":alumnos.semestre})
-
-    return render (request, "editar_alumno.html",{"mi_formulario":mi_formulario,"alumnos":alumnos})
+    avatares= Avatar.objects.filter(user=request.user.id)
+    return render (request, "editar_alumno.html",{"mi_formulario":mi_formulario,"alumnos":alumnos,"url":avatares[0].imagen.url})
 
 def elimina_profesor(request,id):
         profesores = Profesores.objects.get(id=id)
@@ -206,8 +210,8 @@ def elimina_profesor(request,id):
         #trigo todos los cursos
         profesores = Profesores.objects.all()
 
-        #renderizo la tabla con todos los cursos para no darle actualizar le paso los cursos sin el que borre
-        return render(request, "profesores.html", {"profesores":profesores})
+        avatares= Avatar.objects.filter(user=request.user.id)
+        return render(request, "profesores.html", {"profesores":profesores,"url":avatares[0].imagen.url})
 
 def editar_profesor(request,id):
 
@@ -224,14 +228,14 @@ def editar_profesor(request,id):
             profesores.save()
 
             profesores=Profesores.objects.all()
-
-            return render( request , "profesores.html" , {"profesores":profesores})
+            avatares= Avatar.objects.filter(user=request.user.id)
+            return render( request , "profesores.html" , {"profesores":profesores,"url":avatares[0].imagen.url})
 
 
     else:
         mi_formulario = Profesores_formulario(initial={"nombre":profesores.nombre,"camada":profesores.camada,"clase":profesores.clase})
-
-    return render (request, "editar_profesor.html",{"mi_formulario":mi_formulario,"profesores":profesores})
+    avatares= Avatar.objects.filter(user=request.user.id)
+    return render (request, "editar_profesor.html",{"mi_formulario":mi_formulario,"profesores":profesores,"url":avatares[0].imagen.url})
 
 def login_request(request):
     if request.method == "POST":
@@ -243,7 +247,11 @@ def login_request(request):
             if user is not None:
                 login(request , user )
                 avatares= Avatar.objects.filter(user=request.user.id)
-                return render( request , "inicio.html" , {"url":avatares[0].imagen.url, "mensaje":f"Bienvenido/a {usuario}", "usuario":usuario})
+
+                if avatares.exists():
+                    return render( request , "inicio.html" , {"url":avatares[0].imagen.url, "mensaje":f"Bienvenido/a {usuario}", "usuario":usuario})
+                else:
+                    return render( request , "inicio.html",{"mensaje":f"Bienvenido/a {usuario}", "usuario":usuario})
             else:
                 return HttpResponse(f"Usuario no encontrado")
         else:
@@ -251,6 +259,11 @@ def login_request(request):
 
     form = AuthenticationForm()
     return render( request , "login.html" , {"form":form})
+
+    if avatares.exists():
+        return render(request, "cursos.html",{"cursos":cursos,"url":avatares[0].imagen.url})
+    else:
+        return render(request,"cursos.html")
 
 def register(request):
     
@@ -280,3 +293,7 @@ def editarPerfil(request):
         miFormulario = UserEditForm(initial={"email":usuario.email})
     
     return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+user=False
+def usuario_login(user):
+    print(user)
+

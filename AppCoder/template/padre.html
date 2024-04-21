@@ -48,12 +48,6 @@
         </nav>
         <!-- Masthead-->
         <header class="masthead">
-            {% if request.user.is_authenticated %}
-            <div>
-                <img src="{{ url }}" alt="" width="100px" height="100px" >
-                <p>Bienvenido {{user.username}}</p>
-            </div>
-            {% endif %}
             <div class="container position-relative">
                <h1 class="text-center" style="color: white;">App de Coder</h1>
             </div>
