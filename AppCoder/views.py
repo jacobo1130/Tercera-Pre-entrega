@@ -260,10 +260,6 @@ def login_request(request):
     form = AuthenticationForm()
     return render( request , "login.html" , {"form":form})
 
-    if avatares.exists():
-        return render(request, "cursos.html",{"cursos":cursos,"url":avatares[0].imagen.url})
-    else:
-        return render(request,"cursos.html")
 
 def register(request):
     
