@@ -1,4 +1,4 @@
-Trabajo final python, Jacobo Vásquez
+Entrega final Python_54125, Jacobo Vásquez
 1.	Para poder ver la aplicación se debe cambiar la ruta de los templates en settings.py en DIRS por la ruta en donde se descargue, copiando la ruta del template en la computadora que se descargue, recordar cambiar los “\” por “/”
  
 
@@ -8,40 +8,40 @@ Ejecutar los comandos python manage.py check AppCoder   , esto para verificar qu
 Al correr el servidor se entra a la vista principal
 http://127.0.0.1:8000/AppCoder/
 
+Usuarios ya ingresados en la aplicación
+Superusuario Jacob
+
+usuario	contraseña	foto
+jacob	Coder123	si
+prueba1	Coder123	si
+test2	Coder123	no
+
+El test2 se probó sin foto puesto que se realizó la lógica para que los usuarios sin foto no rompan las aplicaciones puesto que cada vista se ve el nombre y foto de perfil.
+
+A partir de la preentrega 3 se añadió lo pedido en la cosnigna:
+
+CRUD para los 3 modelos (alumnos, cursos y profesores)
+Login y logout
+Los usuarios no logeados no pueden editar o borrar cursos
+Se añadió el avatar como imagen de perfil en las vistas
+
+Usuario logeado puede editar y borrar alumnos
+ 
+ 
+Usuario no logeado no puede editar o borrar alumnos
+
  
 
+De esta manera los usuarios no logeados no pueden acceder a cursos ni tampoco a editar y borrar, esto también aplica para los modelos cursos y profesores.
 
-Para esta preentrega se anexo lo siguiente al código
-1.	Se crearon 3 nuevos modelos adicionales y se migraron al proyecto las cuales son:
-Profesores, esta consta de los profesores inscritos los cuales dictan los cursos, sus campos son: nombre, camada (número del curso) y clase (nombre de la asignatura).
- Alumnos: esta consta de los alumnos que cursan las asignaturas, sus campos son nombre, camada (número del curso), clase (nombre de la asignatura), semestre (el nivel en que está en la universidad).
-Ingreso, consta de la gente que se quiere inscribir a un curso, que necesita una orientación tiene los siguientes campos nombre, curso (en el que está interesado inscribirse), celular y edad.
- 
- 
-2.	Se añadieron otros 3 formularios para llenar las bases de datos anteriormente mostradas las cuales se encuentran en la pestaña regístrate.
-http://127.0.0.1:8000/AppCoder/alta_curso
- 
+Al darle a la pestaña ingresar con cualquier usuario se pude logear de igual manera se pueden editar la clave y el correo de este,
+
  
 
-3.	Se completo más el template de alumnos para mostrar los alumnos inscritos en una tabla la cual se le realizo el método “alumnos” el cual recorre la base de datos para armar un diccionario el cual luego se muestra en la pantalla de alumnos.
-http://127.0.0.1:8000/AppCoder/alumnos 
  
-4.	 template adicional que es profesores.html, el cual muestra las imágenes de los profesores y una tabla que nos indica cuales hay en los cursos, para hacer esto se creo una base de datos la cual es Profesores y consta del nombre, camada (código del curso) y clase (nombre de la asignatura).
-http://127.0.0.1:8000/AppCoder/profesores
+Se puede pasar de vistas y me muestra el usuario en la parte del nav con nombre y foto.
+También se puede hacer el logout de cualquiera de los 2 botones.
+
  
+Se pueden añadir avatares a los usuarios creados, por favor ver el video adjunto el cual muestra la explicación del trabajo final.
 
-
-5.	Se añadieron 2 nuevas casillas de búsqueda para buscar en las bases de datos de alumnos y profesores.
-http://127.0.0.1:8000/AppCoder/buscar_curso
- 
-Al buscar algún registro se añade botón para volver a las opciones de búsqueda
- 
-
-Para todos los botones se añadieron redirecciones por lo cual hace más facil la navegación por la aplicación, también se crearon 7 nuevos métodos los cuales son los siguientes:
- 
-
-Alumnos: obtiene todos los registros de la BD de alumnos para luego pasarlos como un diccionario al template para que los recorra, de igual manera lo hace el método profesores.
-
-Alumno_formulario, profesor_formulario, registro_formulario: obtiene la data del formulario de profesores o alumnos para cual sea el caso, la limpia y luego guarda en la BD estos datos.
-
-Buscar_alumnos y buscar_profesores: busca por medio del método GET si el nombre del alumno o profesor se encuentra en la respectiva BD, si la encuentra nos muestra los resultados de lo contrario nos muestra que no se pudo encontrar registros.
