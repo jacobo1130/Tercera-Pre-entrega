@@ -1,4 +1,4 @@
-Tercera Pre-Entrega Python_54125, Jacobo Vásquez
+Trabajo final python, Jacobo Vásquez
 1.	Para poder ver la aplicación se debe cambiar la ruta de los templates en settings.py en DIRS por la ruta en donde se descargue, copiando la ruta del template en la computadora que se descargue, recordar cambiar los “\” por “/”
  
 
