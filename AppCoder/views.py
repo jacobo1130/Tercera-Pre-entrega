@@ -284,10 +284,15 @@ def editarPerfil(request):
             password = informacion["password1"]
             usuario.set_password(password)
             usuario.save()
-            return render(request , "inicio.html")
+            avatares= Avatar.objects.filter(user=request.user.id)
+            if avatares.exists():
+                return render(request , "inicio.html",{"usuario":usuario,"url":avatares[0].imagen.url, "mensaje":f"Bienvenido/a {usuario}"})
+            else:
+                return render(request , "inicio.html")
     else:
+    
         miFormulario = UserEditForm(initial={"email":usuario.email})
     
-    return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario})
 
+    return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario})
 
