@@ -271,7 +271,11 @@ def register(request):
             return HttpResponse("Usuario creado")     
     else:
         form = UserCreationForm()
-    return render(request , "registro.html" , {"form":form})
+    avatares= Avatar.objects.filter(user=request.user.id)
+    if avatares.exists():
+        return render(request , "registro.html" , {"form":form,"url":avatares[0].imagen.url})
+    else:
+        return render(request , "registro.html" , {"form":form})
 
 def editarPerfil(request):
     usuario = request.user
@@ -286,7 +290,7 @@ def editarPerfil(request):
             usuario.save()
             avatares= Avatar.objects.filter(user=request.user.id)
             if avatares.exists():
-                return render(request , "inicio.html",{"usuario":usuario,"url":avatares[0].imagen.url, "mensaje":f"Bienvenido/a {usuario}"})
+                return render(request , "inicio.html",{"usuario":usuario,"url":avatares[0].imagen.url})
             else:
                 return render(request , "inicio.html")
     else:
