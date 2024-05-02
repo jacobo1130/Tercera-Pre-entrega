@@ -297,6 +297,9 @@ def editarPerfil(request):
     
         miFormulario = UserEditForm(initial={"email":usuario.email})
     
-
-    return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario})
+    avatares= Avatar.objects.filter(user=request.user.id)
+    if avatares.exists():
+        return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario,"url":avatares[0].imagen.url})
+    else:
+        return render( request , "editar_perfil.html", {"miFormulario":miFormulario, "usuario":usuario})
 
