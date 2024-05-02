@@ -1,8 +1,7 @@
 Entrega final Python_54125, Jacobo Vásquez
 
 Video explicativo, tambien esta adjunto en el google drive adjunto por si tienen problema para visualizarlo
-https://youtu.be/ujqD8rR0aok
-
+https://youtu.be/FerAH9StYX4
 Google drive:
 https://drive.google.com/drive/folders/1hVm0xXLiI--K9LL3ve-x8cdP9KPhgHX7?usp=sharing
 
